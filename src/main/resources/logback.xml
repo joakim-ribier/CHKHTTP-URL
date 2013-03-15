@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration scan="true" scanPeriod="60 seconds">
+	
+	<appender name="application" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>/var/log/check-http-app/application.log</File>
+		<layout>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] {%logger{32}} : %msg%n</pattern>
+		</layout>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>10</maxIndex>
+			<FileNamePattern>/var/log/check-http-app/application.log.%i</FileNamePattern>
+		</rollingPolicy>
+
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>30000KB</MaxFileSize>
+		</triggeringPolicy>
+ 
+	</appender>
+ 
+	<root level="INFO">
+		<appender-ref ref="application" />
+	</root>
+	
+</configuration>
