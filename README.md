@@ -2,8 +2,7 @@
 
 CHKHTTP-URL check the accessibility of http url.
 
-Running jar : **` #java -jar check-http-app-1.0.jar myconf.file `**
-
+Running jar : **`* */1 * * * java -jar check-http-app-1.0.jar myconf.file`**
 
 ####CONFIGURATION
 
