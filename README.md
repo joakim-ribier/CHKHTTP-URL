@@ -2,7 +2,15 @@
 
 CHKHTTP-URL check the accessibility of http url.
 
-Running jar : **`* */1 * * * java -jar check-http-app-1.0.jar myconf.file`**
+1. Generating jar with maven `mvn clean install`
+
+2. Running jar : 
+
+* `java -jar target/check-http-app-1.0.jar myconf.file`
+
+or to use crontab
+
+* `* */1 * * * java -jar check-http-app-1.0.jar myconf.file`
 
 ####CONFIGURATION
 
