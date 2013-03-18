@@ -10,7 +10,7 @@ CHKHTTP-URL check the accessibility of http url.
 
 or to use crontab
 
-* `* */1 * * * java -jar check-http-app-1.0.jar myconf.file`
+* `0 * * * * java -jar check-http-app-1.0.jar myconf.file`
 
 ####CONFIGURATION
 
