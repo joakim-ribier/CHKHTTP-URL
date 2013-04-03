@@ -1,0 +1,11 @@
+target
+.target
+tmp
+.history
+/.classpath
+/.project
+/eclipse-build
+bin
+.cache
+.settings
+dependency-reduced-pom.xml
