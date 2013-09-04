@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.Properties;
 
 import org.joda.time.DateTime;
@@ -15,8 +16,10 @@ import com.google.common.base.Strings;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import fr.joakimribier.checkhttpapp.exceptions.ConfigurationKeyNotFoundException;
 import fr.joakimribier.checkhttpapp.exceptions.ConnectionServiceException;
 import fr.joakimribier.checkhttpapp.exceptions.FileResourceServiceException;
+import fr.joakimribier.checkhttpapp.exceptions.SendMailServiceException;
 import fr.joakimribier.checkhttpapp.guice.CheckHttpAppModule;
 import fr.joakimribier.checkhttpapp.services.SendMailService;
 import fr.joakimribier.checkhttpapp.utils.FileResourceService;
@@ -61,27 +64,37 @@ public class Main {
 			
 			final Properties properties = fileResource.load(pathFileConfiguration);
 			final Configuration configuration = new Configuration.Builder().properties(properties).build();
-			final String urlToCheck = configuration.getHttpUrlToCheck();
-			int code = ifConnect(urlToCheck);
-			if (code != HttpURLConnection.HTTP_OK) {
-				Logger.info("check url " + urlToCheck + " failed: code = " + code);
-				sendMail.send(
-						configuration.getMailFrom(),
-						configuration.getMailTo(),
-						configuration.getMailSubject(),
-						formatContentText(configuration.getMaiText(), urlToCheck, code),
-						configuration.getSMTPHost(),
-						configuration.getSMTPUser(),
-						configuration.getSMTPPassword(),
-						configuration.getSMTPDebug());
-			} else {
-				Logger.info("check url {} success", urlToCheck);
+			final Collection<String> URLsHttp = configuration.listURLsHttp();
+			for (String URL: URLsHttp) {
+				checkAndSendMail(sendMail, configuration, URL);
 			}
-			
 		} catch (Exception e) {
 			Logger.error(e.getMessage(), e);
 		}
     }
+
+	private static void checkAndSendMail(final SendMailService sendMail,
+			final Configuration configuration, String URL)
+					throws ConnectionServiceException, SendMailServiceException, ConfigurationKeyNotFoundException {
+		
+		int code = ifConnect(URL);
+		if (code != HttpURLConnection.HTTP_OK) {
+			Logger.error("check url {} failed (code:{})", new Object[]{ URL, code});
+			String subject = buildMailSubject(configuration.getMailSubject(), URL);
+			String text = buildMailText(configuration.getMaiText(), URL, code);
+			sendMail.send(
+					configuration.getMailFrom(),
+					configuration.getMailTo(),
+					subject,
+					text,
+					configuration.getSMTPHost(),
+					configuration.getSMTPUser(),
+					configuration.getSMTPPassword(),
+					configuration.getSMTPDebug());
+		} else {
+			Logger.info("check url {} success", URL);
+		}
+	}
 
 	private static String getArgsOrDefaultPathConfiguration(FileResourceService fileUtils,
 			String[] args) throws FileResourceServiceException {
@@ -112,11 +125,13 @@ public class Main {
 				.print(new DateTime());
 	}
 	
-	private static String formatContentText(String text, String urlToChecked, int code) {
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(getDateTime()).append("\r\n\r\n");
-		stringBuilder.append(urlToChecked).append(" - ").append("CODE: ").append(code);
-		stringBuilder.append("\r\n\r\n").append(text);
-		return stringBuilder.toString();
+	private static String buildMailSubject(String subject, String URL) {
+		return subject.replace("{0}", URL);
+	}
+
+	private static String buildMailText(String text, String URL, int code) {
+		return text.replace("{0}", getDateTime()).
+				replace("{1}", URL).
+				replace("{2}", String.valueOf(code));
 	}
 }

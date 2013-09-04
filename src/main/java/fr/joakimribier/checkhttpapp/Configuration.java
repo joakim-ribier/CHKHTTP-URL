@@ -1,6 +1,10 @@
 package fr.joakimribier.checkhttpapp;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Properties;
+
+import com.google.common.collect.Lists;
 
 import fr.joakimribier.checkhttpapp.exceptions.ConfigurationKeyNotFoundException;
 
@@ -42,7 +46,7 @@ public class Configuration {
 			}
 			
 			checkKeysConfigurationFile(
-					Configuration.CHECK_URL_FIELD,
+					Configuration.URL_FIELD + 1,
 					Configuration.SMTP_FIELD,
 					Configuration.USERNAME_FIELD,
 					Configuration.PASSWORD_FIELD,
@@ -64,7 +68,7 @@ public class Configuration {
 		}
 	}
 	
-	private final static String CHECK_URL_FIELD = "check_url";
+	private final static String URL_FIELD = "URL_";
 	private final static String SMTP_FIELD = "smtp";
 	private final static String USERNAME_FIELD = "username";
 	private final static String PASSWORD_FIELD = "password";
@@ -87,9 +91,24 @@ public class Configuration {
 		return properties.getProperty(key);
 	}
 	
-	public String getHttpUrlToCheck() throws ConfigurationKeyNotFoundException {
-		return getStringProperty(CHECK_URL_FIELD);
+	public Collection<String> listURLsHttp() {
+		List<String> URLs = Lists.newArrayList();
+		fillURLs(1, URLs);
+		return URLs;
 	}
+	
+	private void fillURLs(int id, List<String> URLs) {
+		try {
+			String URL = getStringProperty(URL_FIELD + id);
+			if (URL != null) {
+				URLs.add(URL);
+				fillURLs(id + 1, URLs);
+			}
+		} catch (ConfigurationKeyNotFoundException e) {
+			return ;
+		}
+	}
+	
 	
 	public String getSMTPHost() throws ConfigurationKeyNotFoundException {
 		return getStringProperty(SMTP_FIELD);
