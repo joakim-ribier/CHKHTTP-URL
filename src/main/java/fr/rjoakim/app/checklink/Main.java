@@ -1,4 +1,4 @@
-package fr.joakimribier.checkhttpapp;
+package fr.rjoakim.app.checklink;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -16,13 +16,13 @@ import com.google.common.base.Strings;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import fr.joakimribier.checkhttpapp.exceptions.ConfigurationKeyNotFoundException;
-import fr.joakimribier.checkhttpapp.exceptions.ConnectionServiceException;
-import fr.joakimribier.checkhttpapp.exceptions.FileResourceServiceException;
-import fr.joakimribier.checkhttpapp.exceptions.SendMailServiceException;
-import fr.joakimribier.checkhttpapp.guice.CheckHttpAppModule;
-import fr.joakimribier.checkhttpapp.services.SendMailService;
-import fr.joakimribier.checkhttpapp.utils.FileResourceService;
+import fr.rjoakim.app.checklink.exceptions.ConfigurationKeyNotFoundException;
+import fr.rjoakim.app.checklink.exceptions.ConnectionServiceException;
+import fr.rjoakim.app.checklink.exceptions.FileResourceServiceException;
+import fr.rjoakim.app.checklink.exceptions.SendMailServiceException;
+import fr.rjoakim.app.checklink.guice.CheckHttpAppModule;
+import fr.rjoakim.app.checklink.services.SendMailService;
+import fr.rjoakim.app.checklink.utils.FileResourceService;
 
 /**
  * 

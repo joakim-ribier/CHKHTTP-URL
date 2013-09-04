@@ -1,11 +1,6 @@
-package fr.joakimribier.checkhttpapp.guice;
+package fr.rjoakim.app.checklink.services;
 
-import com.google.inject.AbstractModule;
-
-import fr.joakimribier.checkhttpapp.services.SendMail;
-import fr.joakimribier.checkhttpapp.services.SendMailService;
-import fr.joakimribier.checkhttpapp.utils.FileResource;
-import fr.joakimribier.checkhttpapp.utils.FileResourceService;
+import fr.rjoakim.app.checklink.exceptions.SendMailServiceException;
 
 /**
  * 
@@ -27,11 +22,8 @@ import fr.joakimribier.checkhttpapp.utils.FileResourceService;
  * limitations under the License.
  * 
  */
-public class CheckHttpAppModule extends AbstractModule {
+public interface SendMailService {
 
-	@Override
-	protected void configure() {
-		bind(FileResourceService.class).to(FileResource.class);
-		bind(SendMailService.class).to(SendMail.class);
-	}
+	void send(String from, String to, String subject, String text, String smtp,
+			String user, String password, boolean debug) throws SendMailServiceException;
 }

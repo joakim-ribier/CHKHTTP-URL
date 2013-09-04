@@ -1,4 +1,4 @@
-package fr.joakimribier.checkhttpapp.services;
+package fr.rjoakim.app.checklink.services;
 
 import java.util.Date;
 import java.util.Properties;
@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.inject.Singleton;
 
-import fr.joakimribier.checkhttpapp.exceptions.SendMailServiceException;
+import fr.rjoakim.app.checklink.exceptions.SendMailServiceException;
 
 /**
  * 

@@ -1,8 +1,8 @@
-package fr.joakimribier.checkhttpapp.utils;
+package fr.rjoakim.app.checklink.utils;
 
 import java.util.Properties;
 
-import fr.joakimribier.checkhttpapp.exceptions.FileResourceServiceException;
+import fr.rjoakim.app.checklink.exceptions.FileResourceServiceException;
 
 /**
  * 

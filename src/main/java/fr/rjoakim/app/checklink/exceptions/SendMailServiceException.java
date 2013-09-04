@@ -1,6 +1,4 @@
-package fr.joakimribier.checkhttpapp.services;
-
-import fr.joakimribier.checkhttpapp.exceptions.SendMailServiceException;
+package fr.rjoakim.app.checklink.exceptions;
 
 /**
  * 
@@ -22,8 +20,17 @@ import fr.joakimribier.checkhttpapp.exceptions.SendMailServiceException;
  * limitations under the License.
  * 
  */
-public interface SendMailService {
-
-	void send(String from, String to, String subject, String text, String smtp,
-			String user, String password, boolean debug) throws SendMailServiceException;
+public class SendMailServiceException extends Exception {
+	
+	public SendMailServiceException() {
+		super();
+	}
+	
+	public SendMailServiceException(String arg0) {
+		super(arg0);
+	}
+	
+	public SendMailServiceException(String message, Throwable cause) {
+		super(message, cause);
+	}
 }

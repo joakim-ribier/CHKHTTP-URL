@@ -1,4 +1,11 @@
-package fr.joakimribier.checkhttpapp.exceptions;
+package fr.rjoakim.app.checklink.guice;
+
+import com.google.inject.AbstractModule;
+
+import fr.rjoakim.app.checklink.services.SendMail;
+import fr.rjoakim.app.checklink.services.SendMailService;
+import fr.rjoakim.app.checklink.utils.FileResource;
+import fr.rjoakim.app.checklink.utils.FileResourceService;
 
 /**
  * 
@@ -20,17 +27,11 @@ package fr.joakimribier.checkhttpapp.exceptions;
  * limitations under the License.
  * 
  */
-public class ConfigurationKeyNotFoundException extends Exception {
-	
-	public ConfigurationKeyNotFoundException() {
-		super();
-	}
-	
-	public ConfigurationKeyNotFoundException(String arg0) {
-		super(arg0);
-	}
-	
-	public ConfigurationKeyNotFoundException(String message, Throwable cause) {
-		super(message, cause);
+public class CheckHttpAppModule extends AbstractModule {
+
+	@Override
+	protected void configure() {
+		bind(FileResourceService.class).to(FileResource.class);
+		bind(SendMailService.class).to(SendMail.class);
 	}
 }

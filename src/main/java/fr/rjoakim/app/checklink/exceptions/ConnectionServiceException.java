@@ -1,4 +1,4 @@
-package fr.joakimribier.checkhttpapp.exceptions;
+package fr.rjoakim.app.checklink.exceptions;
 
 /**
  * 
@@ -20,17 +20,17 @@ package fr.joakimribier.checkhttpapp.exceptions;
  * limitations under the License.
  * 
  */
-public class SendMailServiceException extends Exception {
+public class ConnectionServiceException extends Exception {
 	
-	public SendMailServiceException() {
+	public ConnectionServiceException() {
 		super();
 	}
 	
-	public SendMailServiceException(String arg0) {
+	public ConnectionServiceException(String arg0) {
 		super(arg0);
 	}
 	
-	public SendMailServiceException(String message, Throwable cause) {
+	public ConnectionServiceException(String message, Throwable cause) {
 		super(message, cause);
 	}
 }

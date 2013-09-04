@@ -1,4 +1,4 @@
-package fr.joakimribier.checkhttpapp;
+package fr.rjoakim.app.checklink;
 
 import java.util.Collection;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Properties;
 
 import com.google.common.collect.Lists;
 
-import fr.joakimribier.checkhttpapp.exceptions.ConfigurationKeyNotFoundException;
+import fr.rjoakim.app.checklink.exceptions.ConfigurationKeyNotFoundException;
 
 /**
  * 

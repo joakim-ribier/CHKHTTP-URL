@@ -3,11 +3,11 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>fr.joakimribier.checkhttpapp</groupId>
-	<artifactId>check-http-app</artifactId>
+	<groupId>fr.rjoakim.app.checklink</groupId>
+	<artifactId>checklink</artifactId>
 	<version>1.1</version>
 	<packaging>jar</packaging>
-	<name>CHKHTTP-URL</name>
+	<name>CheckLink</name>
 
 	<organization>
 		<name>Joakim Ribier</name>
@@ -115,7 +115,7 @@
 						<configuration>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>fr.joakimribier.checkhttpapp.Main</mainClass>
+									<mainClass>fr.rjoakim.app.checklink.Main</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>

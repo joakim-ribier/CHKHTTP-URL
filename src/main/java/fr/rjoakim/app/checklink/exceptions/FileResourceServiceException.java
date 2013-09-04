@@ -1,4 +1,4 @@
-package fr.joakimribier.checkhttpapp.exceptions;
+package fr.rjoakim.app.checklink.exceptions;
 
 /**
  * 
@@ -20,17 +20,17 @@ package fr.joakimribier.checkhttpapp.exceptions;
  * limitations under the License.
  * 
  */
-public class ConnectionServiceException extends Exception {
+public class FileResourceServiceException extends Exception {
 	
-	public ConnectionServiceException() {
+	public FileResourceServiceException() {
 		super();
 	}
 	
-	public ConnectionServiceException(String arg0) {
+	public FileResourceServiceException(String arg0) {
 		super(arg0);
 	}
 	
-	public ConnectionServiceException(String message, Throwable cause) {
+	public FileResourceServiceException(String message, Throwable cause) {
 		super(message, cause);
 	}
 }
