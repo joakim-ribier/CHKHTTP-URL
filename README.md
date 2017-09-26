@@ -4,7 +4,7 @@ Check HTTP url accessibility.
 
 RELEASE 1.1
 ## Deployment
----
+
 ### 1. Build
 
 Generate the `*.jar` to be installed (on the server for example)
@@ -20,8 +20,9 @@ java -jar target/checklink-{release}.jar application.conf
 */10 * * * * java -jar checklink-{release}.jar application.conf
 ```
 ## Configuration
----
+
 The `application.conf` can be defined by argument `args[0]` or just with default resource file `file.path`.
+
 Example:
  * URL_1=http://www.my-domain.com
  * URL_2=http://xxx.my-domain.com
