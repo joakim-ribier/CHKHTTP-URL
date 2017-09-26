@@ -1,23 +1,28 @@
-#CheckLink - 1.1
+# CheckLink - 1.1
 
-Check the accessibility of http url.
+Check HTTP url accessibility.
 
-1. Generating jar with maven `mvn clean install`
+RELEASE 1.1
+## Deployment
+---
+### 1. Build
 
-2. Running jar : 
-
-* `java -jar target/checklink-1.1.jar myconf.file`
-
-or to use crontab
-
-* `0 * * * * java -jar checklink-1.1.jar myconf.file`
-
-####CONFIGURATION
-
-The configuration file path default is defined in file.path OR It can be defined by argument ( args[0] )
-
-Example :
-
+Generate the `*.jar` to be installed (on the server for example)
+```
+./mvn clean install
+```
+### 2. Run 
+Execute directly the `*.jar` just once or with the cron task.
+```
+java -jar target/checklink-{release}.jar application.conf
+```
+```
+*/10 * * * * java -jar checklink-{release}.jar application.conf
+```
+## Configuration
+---
+The `application.conf` can be defined by argument `args[0]` or just with default resource file `file.path`.
+Example:
  * URL_1=http://www.my-domain.com
  * URL_2=http://xxx.my-domain.com
  * URL_X=http://yyy.my-domain.com
@@ -26,6 +31,6 @@ Example :
  * password=password
  * from=from@my-domain.com
  * to=to@my-domain.com
- * subject=Subject of : {0}
- * text=At {0}, the http URL {1} was not accessible. Error code: {2}
+ * subject=MAIL FROM MY-SERVER CHECK ON URL {0}
+ * text=AUTO MESSAGE, FROM DATE {0}, ON HTTP URL {1} WAS NOT ACCESSIBLE.\n\rError HTTP code: {2}
  * smtp_debug=true
