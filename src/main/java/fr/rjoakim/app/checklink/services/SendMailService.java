@@ -24,6 +24,6 @@ import fr.rjoakim.app.checklink.exceptions.SendMailServiceException;
  */
 public interface SendMailService {
 
-	void send(String from, String to, String subject, String text, String smtp,
-			String user, String password, boolean debug) throws SendMailServiceException;
+	void send(String from, String to, String cc, String subject, String text, String smtp,
+		String user, String password, boolean debug) throws SendMailServiceException;
 }

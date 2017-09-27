@@ -1,24 +1,17 @@
 package fr.rjoakim.app.checklink.services;
 
-import java.util.Date;
-import java.util.Properties;
-
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
+import com.google.common.base.Strings;
+import com.google.inject.Singleton;
+import fr.rjoakim.app.checklink.exceptions.SendMailServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Singleton;
-
-import fr.rjoakim.app.checklink.exceptions.SendMailServiceException;
+import javax.mail.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Date;
+import java.util.Properties;
 
 /**
  * 
@@ -48,8 +41,8 @@ public class SendMail implements SendMailService {
 	public SendMail() {}
 
 	@Override
-	public void send(String from, String to, String subject, String text,
-			String smtp, String user, String password, boolean debug) throws SendMailServiceException {
+	public void send(String from, String to, String cc, String subject, String text,
+		String smtp, String user, String password, boolean debug) throws SendMailServiceException {
 		
 		try {
 			Properties props = System.getProperties();
@@ -64,6 +57,9 @@ public class SendMail implements SendMailService {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(from));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			if (!Strings.isNullOrEmpty(cc)) {
+				message.addRecipient(Message.RecipientType.CC, new InternetAddress(cc));
+			}
 			message.setSubject(subject);
 			message.setText(text);
 			message.setHeader("X-Mailer", "Joakim Ribier (http://www.joakim-ribier.fr)");

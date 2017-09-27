@@ -1,12 +1,11 @@
 package fr.rjoakim.app.checklink;
 
+import com.google.common.collect.Lists;
+import fr.rjoakim.app.checklink.exceptions.ConfigurationKeyNotFoundException;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
-
-import com.google.common.collect.Lists;
-
-import fr.rjoakim.app.checklink.exceptions.ConfigurationKeyNotFoundException;
 
 /**
  * 
@@ -74,6 +73,7 @@ public class Configuration {
 	private final static String PASSWORD_FIELD = "password";
 	private final static String FROM_FIELD = "from";
 	private final static String TO_FIELD = "to";
+	private final static String CC_FIELD = "cc";
 	private final static String SUBJECT_FIELD = "subject";
 	private final static String TEXT_FIELD = "text";
 	private final static String SMTP_DEBUG_FIELD = "smtp_debug";
@@ -84,11 +84,19 @@ public class Configuration {
 		this.properties = properties;
 	}
 	
-	private String getStringProperty(String key) throws ConfigurationKeyNotFoundException {
+	private String getPropertyValue(String key) throws ConfigurationKeyNotFoundException {
 		if (!properties.containsKey(key)) {
-			throw new ConfigurationKeyNotFoundException("key " + key + "not found.");
+			throw new ConfigurationKeyNotFoundException("key " + key + "not found");
 		}
 		return properties.getProperty(key);
+	}
+
+	private String getPropertyValue(String key, String defaultValue) {
+		try {
+			return getPropertyValue(key);
+		} catch (ConfigurationKeyNotFoundException e) {
+			return defaultValue;
+		}
 	}
 	
 	public Collection<String> listURLsHttp() {
@@ -99,7 +107,7 @@ public class Configuration {
 	
 	private void fillURLs(int id, List<String> URLs) {
 		try {
-			String URL = getStringProperty(URL_FIELD + id);
+			String URL = getPropertyValue(URL_FIELD + id);
 			if (URL != null) {
 				URLs.add(URL);
 				fillURLs(id + 1, URLs);
@@ -111,35 +119,39 @@ public class Configuration {
 	
 	
 	public String getSMTPHost() throws ConfigurationKeyNotFoundException {
-		return getStringProperty(SMTP_FIELD);
+		return getPropertyValue(SMTP_FIELD);
 	}
 	
 	public boolean getSMTPDebug() throws ConfigurationKeyNotFoundException {
-		return Boolean.valueOf(getStringProperty(SMTP_DEBUG_FIELD));
+		return Boolean.valueOf(getPropertyValue(SMTP_DEBUG_FIELD));
 	}
 	
 	public String getSMTPUser() throws ConfigurationKeyNotFoundException {
-		return getStringProperty(USERNAME_FIELD);
+		return getPropertyValue(USERNAME_FIELD);
 	}
 	
 	public String getSMTPPassword() throws ConfigurationKeyNotFoundException {
-		return getStringProperty(PASSWORD_FIELD);
+		return getPropertyValue(PASSWORD_FIELD);
 	}
 	
 	public String getMailFrom() throws ConfigurationKeyNotFoundException {
-		return getStringProperty(FROM_FIELD);
+		return getPropertyValue(FROM_FIELD);
 	}
 	
 	public String getMailTo() throws ConfigurationKeyNotFoundException {
-		return getStringProperty(TO_FIELD);
+		return getPropertyValue(TO_FIELD);
+	}
+
+	public String getMailCC() {
+		return getPropertyValue(CC_FIELD, "");
 	}
 	
 	public String getMailSubject() throws ConfigurationKeyNotFoundException {
-		return getStringProperty(SUBJECT_FIELD);
+		return getPropertyValue(SUBJECT_FIELD);
 	}
 	
 	public String getMaiText() throws ConfigurationKeyNotFoundException {
-		return getStringProperty(TEXT_FIELD);
+		return getPropertyValue(TEXT_FIELD);
 	}
 	
 	public Properties getProperties() {

@@ -32,6 +32,7 @@ Example:
  * password=password
  * from=from@my-domain.com
  * to=to@my-domain.com
+ * cc=cc@my-domain.com (not required)
  * subject=MAIL FROM MY-SERVER CHECK ON URL {0}
  * text=AUTO MESSAGE, FROM DATE {0}, ON HTTP URL {1} WAS NOT ACCESSIBLE.\n\rError HTTP code: {2}
  * smtp_debug=true

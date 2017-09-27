@@ -1,21 +1,8 @@
 package fr.rjoakim.app.checklink;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Collection;
-import java.util.Properties;
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.common.base.Strings;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
 import fr.rjoakim.app.checklink.exceptions.ConfigurationKeyNotFoundException;
 import fr.rjoakim.app.checklink.exceptions.ConnectionServiceException;
 import fr.rjoakim.app.checklink.exceptions.FileResourceServiceException;
@@ -23,6 +10,17 @@ import fr.rjoakim.app.checklink.exceptions.SendMailServiceException;
 import fr.rjoakim.app.checklink.guice.CheckHttpAppModule;
 import fr.rjoakim.app.checklink.services.SendMailService;
 import fr.rjoakim.app.checklink.utils.FileResourceService;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Collection;
+import java.util.Properties;
 
 /**
  * 
@@ -85,6 +83,7 @@ public class Main {
 			sendMail.send(
 					configuration.getMailFrom(),
 					configuration.getMailTo(),
+					configuration.getMailCC(),
 					subject,
 					text,
 					configuration.getSMTPHost(),
